@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:method="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>MVC Test</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-2">
+        <div class="card">
+            <div class="card-header">Liste des patients</div>
+            <div class="card-body">
+                <form method="get" th:action="@{index}">
+                    <label>KEY WORD</label>
+                    <input type="text" name="keyword">
+                    <button type="submit" class="btn btn-primary">chercher</button>
+                </form>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nom</th>
+                            <th>Date</th>
+                            <th>Malade</th>
+                            <th>Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="p:${listPatients}">
+                            <td th:text="${p.id}"></td>
+                            <td th:text="${p.nom}"></td>
+                            <td th:text="${p.dateNaissance}"></td>
+                            <td th:text="${p.malade}"></td>
+                            <td th:text="${p.score}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <ul class="nav nav-pills">
+                    <li th:each="page,status:${pages}">
+                        <a th:class="${status.index==currentPage ? 'btn btn-primary m-lg-1' : 'btn btn-outline-info m-lg-1' }"
+                           th:text="${status.index}"
+                           th:href="@{index(page=${status.index})}">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
